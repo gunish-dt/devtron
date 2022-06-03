@@ -1,5 +1,5 @@
-LTAG="v0.4.9";
-REPO_RAW_URL="https://raw.githubusercontent.com/devtron-labs/devtron/";
+LTAG="postgresPoc";
+REPO_RAW_URL="https://raw.githubusercontent.com/gunish-dt/devtron/";
 
 operatorSecret = kubectl get secret -n devtroncd devtron-operator-secret;
 operatorConfigMap = kubectl get cm -n devtroncd devtron-operator-cm;

@@ -32,7 +32,7 @@ spec:
         - name: DB_USER_NAME
           value: postgres
         - name: DB_HOST
-          value: postgresql-postgresql.devtroncd
+          value: 34.131.85.44
         - name: DB_PORT
           value: "5432"
         - name: DB_NAME
@@ -192,7 +192,7 @@ spec:
               name: postgresql-postgresql
               key: postgresql-password
         - name: PGHOST
-          value: postgresql-postgresql
+          value: 34.131.85.44
         command:
           - /bin/sh
           - -c
@@ -223,7 +223,7 @@ spec:
             image: quay.io/devtron/chart-sync:1227622d-132-3775
             env:
             - name: PG_ADDR
-              value: postgresql-postgresql.devtroncd
+              value: 34.131.85.44
             - name: PG_DATABASE
               value: orchestrator
             - name: PG_USER

@@ -1,20 +1,21 @@
 installer:
   repo: "devtron-labs/devtron"
 #  For Kubernetes version < 1.16, set release: legacy. You won't be able to upgrade Devtron unless you upgrade the K8s version to 1.16 or above.
-  release: "v0.4.9" #You can use a branch name or a release tag name as a release, for gitee as source only "main" is supported as of now
+  release: "v0.4.3" #You can use a branch name or a release tag name as a release, for gitee as source only "main" is supported as of now
   image: quay.io/devtron/inception
   tag: acb623ff-185-7117
   source: "github" # Available options are github and gitee
 #  mode: "dashboard" # Available options are dashboard, full and hyperion (deprecated) NOT USING THIS
-  modules: [] # Available options are cicd
-  production_overrides: "" # Set true if you want to use this Devtron stack in Production (This will require more resources)
+  modules:  
+    - cicd # Available options are cicd
+  production_overrides: "true" # Set true if you want to use this Devtron stack in Production (This will require more resources)
 
 # Change the below values for full mode only
 
 #Use secrets in plaintext, they'll be encoded to base64 automatically.
-secrets: 
+secrets: {}
 #  If No POSTGRESQL_PASSWORD is provided, a password is automatically generated and saved in secret devtron-secret
-  POSTGRESQL_PASSWORD: "gunish"
+#  POSTGRESQL_PASSWORD: "change-me"
 
 #  REQUIRED IF BLOB_STORAGE_PROVIDER=AZURE Token with read write access to AZURE_BLOB_CONTAINER_CI_LOG and AZURE_BLOB_CONTAINER_CI_CACHE
 #  AZURE_ACCOUNT_KEY: "xxxxxxxxxx"
@@ -35,6 +36,18 @@ configs:
   #AZURE_BLOB_CONTAINER_CI_CACHE: "ci-cache-container"
 
 # Change the below values for hyperion only mode (Refer https://docs.devtron.ai/#hyperion )
+global:
+  nodeSelector: 
+    restoreToOriginalReplicaCount: true
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 300        
+  tolerations: 
+    - key: gunish-25may
+      value: yo
+    
+
 components:
   dashboard:
     config:
@@ -43,13 +56,20 @@ components:
       sentry: "false"
       sentryEnv: "PRODUCTION"
       applicationMetrics: "true"
-    image: "quay.io/devtron/dashboard:c8b8d431-240-8910"
+    image: "quay.io/devtron/dashboard:37926951-240-8617"
     imagePullPolicy: IfNotPresent
+    nodeSelector: {}
+    tolerations: 
+      - key: gunish-test2
+        value: hello2
 
   devtron:
-    image: "quay.io/devtron/hyperion:3d41b121-280-8899"
-    cicdImage: "quay.io/devtron/devtron:3d41b121-324-8898"
+    image: "quay.io/devtron/hyperion:11d3bc2c-282-8589"
     imagePullPolicy: IfNotPresent
+    nodeSelector: {}
+    tolerations: 
+      - key: gunish-test3
+        value: hello2
     serviceMonitor:
       enabled: false
     service:
@@ -73,21 +93,29 @@ components:
       #      - devtron.example.com
 
   argocdDexServer:
-    image: "quay.io/dexidp/dex:v2.25.0"
+    image: quay.io/dexidp/dex:v2.25.0
     imagePullPolicy: IfNotPresent
-    initContainer:
-      authenticator: "quay.io/devtron/authenticator:415f5470-279-6520"
-      cicdAuthenticator: "quay.io/argoproj/argocd:v1.8.1"
+    nodeSelector:
+      gunishjain: false
+    tolerations: []
 
   kubelink:
-    image: "quay.io/devtron/kubelink:d691bfbb-318-8695"
+    image: "quay.io/devtron/kubelink:1be465ec-318-7966"
     imagePullPolicy: IfNotPresent
+    nodeSelector: {}
+    tolerations:
+      - key: gunish-test5
+        value: hello2
 
   postgres:
     image: "quay.io/devtron/postgres:11.9.0-debian-10-r26"
     imagePullPolicy: "IfNotPresent"
+    nodeSelector: {}
+    tolerations:  
+      - key: gunish-test6
+        value: hello2
     persistence:
-      volumeSize: "20Gi"
+      volumeSize: "10Gi"
 
   migrator:
     image: "quay.io/devtron/migrator:6687f572-133-2208"
@@ -97,10 +125,15 @@ components:
         SCRIPT_LOCATION: "scripts/sql/"
         GIT_REPO_URL: "https://github.com/devtron-labs/devtron.git"
         DB_NAME: "orchestrator"
-        GIT_HASH: "3d41b12146d1a1d1168cc5ee9777f9bfab76aeed"
+        GIT_HASH: "11d3bc2c2e215b73dab11a5f35f63d3c49ab0964"
       casbin:
         GIT_BRANCH: "main"
         SCRIPT_LOCATION: "scripts/casbin/"
         GIT_REPO_URL: "https://github.com/devtron-labs/devtron.git"
         DB_NAME: "casbin"
-        GIT_HASH: "3d41b12146d1a1d1168cc5ee9777f9bfab76aeed"
+        GIT_HASH: "11d3bc2c2e215b73dab11a5f35f63d3c49ab0964"
+    nodeSelector: 
+      gunish-great: true
+    tolerations:
+      - key: gunish-mig
+        value: yoyo
