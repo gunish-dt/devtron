@@ -13,7 +13,7 @@ metadata:
   labels:
     app: git-sensor
 data:
-  PG_ADDR: 34.131.85.44:5432
+  PG_ADDR: 34.131.26.50
   PG_USER: postgres
 ---
 # Source: gitsensor/templates/generic.yaml

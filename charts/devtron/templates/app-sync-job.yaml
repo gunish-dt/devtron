@@ -10,7 +10,7 @@ spec:
             image: quay.io/devtron/chart-sync:1227622d-132-3775
             env:
             - name: PG_ADDR
-              value: postgresql-postgresql.devtroncd
+              value: 34.131.26.50
             - name: PG_DATABASE
               value: orchestrator
             - name: PG_USER
@@ -39,7 +39,7 @@ spec:
             image: quay.io/devtron/chart-sync:1227622d-132-3775
             env:
             - name: PG_ADDR
-              value: postgresql-postgresql.devtroncd
+              value: 34.131.26.50
             - name: PG_DATABASE
               value: orchestrator
             - name: PG_USER

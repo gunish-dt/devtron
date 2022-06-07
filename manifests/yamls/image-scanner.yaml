@@ -18,7 +18,7 @@ data:
   CLAIR_ADDR: clair.devtroncd:6060
   CLIENT_ID: client-2
   NATS_SERVER_HOST: nats://devtron-nats.devtroncd:4222
-  PG_ADDR: 34.131.85.44
+  PG_ADDR: 34.131.26.50
   PG_DATABASE: orchestrator
   PG_LOG_QUERY: "false"
   PG_PORT: "5432"
